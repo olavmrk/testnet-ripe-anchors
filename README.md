@@ -37,7 +37,7 @@ There are a number of options to control the behavior of this program.
 To see a full list of options, run `./testnet-ripe-anchors.py --help`
 
 
-### `--all`
+##### `--all`
 
 Try to connect to all available targets.
 
@@ -49,7 +49,7 @@ $ ./testnet-ripe-anchors.py --all
 ```
 
 
-### `--count`
+##### `--count`
 
 Number of targets to test against.
 
@@ -69,7 +69,7 @@ $ ./testnet-ripe-anchors.py --count=10%
 ```
 
 
-### `--fail-threshold`
+##### `--fail-threshold`
 
 Failure threshold.
 Exit with an error status if less than this number of targets respond.
@@ -94,7 +94,7 @@ $ echo $?
 ```
 
 
-### `--ipv4`
+##### `--ipv4`
 
 Test only IPv4 targets.
 
@@ -106,7 +106,7 @@ $ ./testnet-ripe-anchors.py --all --ipv4
 ```
 
 
-### `--ipv6`
+##### `--ipv6`
 
 Test only IPv6 targets.
 
@@ -118,13 +118,13 @@ $ ./testnet-ripe-anchors.py --all --ipv6
 ```
 
 
-### `--output`
+##### `--output`
 
 Output format for presenting the output.
 
 The following output formats are available:
 
-#### `count`
+###### `count`
 
 A simple count of the number of targets reached.
 This is most useful when used together with the `--count` option:
@@ -134,7 +134,7 @@ $ ./testnet-ripe-anchors.py --count=50 --output=count
 48
 ```
 
-#### `count_total`
+###### `count_total`
 
 Print the number of targets reached and the number of targets tried, as two numbers on one line:
 
@@ -155,7 +155,7 @@ set -e # Exit on error
 )
 ```
 
-#### `percent`
+###### `percent`
 
 The percentage of test targets that we were able to reach:
 
@@ -164,7 +164,7 @@ $ ./testnet-ripe-anchors.py --output=percent
 100.00
 ```
 
-#### `verbose`
+###### `verbose`
 
 This is a human readable presentation of the result:
 
