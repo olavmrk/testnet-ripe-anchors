@@ -12,7 +12,7 @@ Quick start
 
 *Note*:
 If you get an error about being unable to import the requests-library, you will need to install it.
-See the section about dependencies belof.
+See the section about dependencies below.
 
 
 To test connectivity to 5% of the RIPE Atlas Anchors, run:
