@@ -15,6 +15,8 @@ import threading
 def get(url, **kwargs):
     r = requests.get(url, headers={'User-Agent': 'testnet-ripe-anchors.py'}, **kwargs)
     r.raise_for_status()
+    # To be compatible with older versions of the requests library,
+    # we manually parse the JSON data here.
     return json.loads(r.text)
 
 class Anchor(object):
