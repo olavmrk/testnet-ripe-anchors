@@ -232,7 +232,8 @@ def main():
 
     args = parse_args()
 
-    anchor_cache = AnchorCache('/tmp/testnet-ripe-anchors-cache.json')
+    cache_file = '/tmp/testnet-ripe-anchors-cache-{uid}.json'.format(uid=os.getuid())
+    anchor_cache = AnchorCache(cache_file)
     anchors = anchor_cache.anchors
 
     targets = []
