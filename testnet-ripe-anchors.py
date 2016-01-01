@@ -139,7 +139,7 @@ class AnchorCache(object):
 
 class Tester(object):
 
-    # Maximum number of parallell threads.
+    # Maximum number of parallel threads.
     _MAX_THREADS = 20
 
     # Our semaphore, used to limit active threads.
