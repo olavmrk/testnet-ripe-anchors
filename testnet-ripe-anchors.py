@@ -187,10 +187,10 @@ class Tester(object):
     def run_tests(self, targets):
         for target in targets:
             self._run_test(target)
+        self._flush_work()
 
     @property
     def results(self):
-        self._flush_work()
         with self._results_lock:
             ret = copy.deepcopy(self._results)
         return ret
