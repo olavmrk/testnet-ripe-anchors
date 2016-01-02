@@ -185,9 +185,14 @@ class Tester(object):
             self._limiter.release()
 
     def run_tests(self, targets):
-        for target in targets:
-            self._run_test(target)
-        self._flush_work()
+        def _run():
+            for target in targets:
+                self._run_test(target)
+            self._flush_work()
+        t = threading.Thread(target=_run)
+        t.start()
+        while t.is_alive():
+            t.join(timeout=1000) # We need to specify a timeout here to make it interruptible by Ctrl+C
 
     @property
     def results(self):
