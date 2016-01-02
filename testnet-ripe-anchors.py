@@ -176,6 +176,7 @@ class Tester(object):
 
         self._limiter.acquire()
         t = threading.Thread(target=_test_function)
+        t.daemon = True
         t.start()
 
     def _flush_work(self):
@@ -190,6 +191,7 @@ class Tester(object):
                 self._run_test(target)
             self._flush_work()
         t = threading.Thread(target=_run)
+        t.daemon = True
         t.start()
         while t.is_alive():
             t.join(timeout=1000) # We need to specify a timeout here to make it interruptible by Ctrl+C
