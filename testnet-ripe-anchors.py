@@ -166,7 +166,7 @@ class Tester(object):
         except:
             return False
 
-    def run_test(self, address):
+    def _run_test(self, address):
 
         def _test_function():
             result = Tester._test_address(address)
@@ -183,6 +183,10 @@ class Tester(object):
             self._limiter.acquire()
         for i in range(0, Tester._MAX_THREADS):
             self._limiter.release()
+
+    def run_tests(self, targets):
+        for target in targets:
+            self._run_test(target)
 
     @property
     def results(self):
@@ -259,8 +263,7 @@ def main():
     targets = random.sample(targets, count)
 
     tester = Tester()
-    for target in targets:
-        tester.run_test(target)
+    tester.run_tests(targets)
 
     results = tester.results
     total = len(results)
