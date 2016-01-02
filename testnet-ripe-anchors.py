@@ -166,7 +166,7 @@ class Tester(object):
         except:
             return False
 
-    def run_test(self, address):
+    def _run_test(self, address):
 
         def _test_function():
             result = Tester._test_address(address)
@@ -176,6 +176,7 @@ class Tester(object):
 
         self._limiter.acquire()
         t = threading.Thread(target=_test_function)
+        t.daemon = True
         t.start()
 
     def _flush_work(self):
@@ -184,9 +185,19 @@ class Tester(object):
         for i in range(0, Tester._MAX_THREADS):
             self._limiter.release()
 
+    def run_tests(self, targets):
+        def _run():
+            for target in targets:
+                self._run_test(target)
+            self._flush_work()
+        t = threading.Thread(target=_run)
+        t.daemon = True
+        t.start()
+        while t.is_alive():
+            t.join(timeout=1000) # We need to specify a timeout here to make it interruptible by Ctrl+C
+
     @property
     def results(self):
-        self._flush_work()
         with self._results_lock:
             ret = copy.deepcopy(self._results)
         return ret
@@ -259,8 +270,7 @@ def main():
     targets = random.sample(targets, count)
 
     tester = Tester()
-    for target in targets:
-        tester.run_test(target)
+    tester.run_tests(targets)
 
     results = tester.results
     total = len(results)
@@ -284,4 +294,7 @@ def main():
             sys.exit(1)
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit(1)
